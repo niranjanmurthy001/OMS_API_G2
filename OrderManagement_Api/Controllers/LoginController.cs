@@ -138,6 +138,12 @@ namespace OrderManagement_Api.Controllers
 
         }
 
+        public HttpResponseMessage Heloo(Users User)
+        {
+
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+        }
+
 
 
     }
