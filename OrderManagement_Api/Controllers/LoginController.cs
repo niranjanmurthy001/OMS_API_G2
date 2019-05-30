@@ -144,6 +144,10 @@ namespace OrderManagement_Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
         }
 
+        public HttpResponseMessage Niranjan(Users uus)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+        }
 
 
     }
