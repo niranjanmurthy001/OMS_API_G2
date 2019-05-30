@@ -111,7 +111,7 @@ namespace OrderManagement_Api.Controllers
         }
 
         [HttpPost]
-        [ActionName("Validate")]
+        [ActionName("Validate_Test")]
         public HttpResponseMessage Post_New(Users Obj1)
         {
 
