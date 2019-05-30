@@ -117,5 +117,19 @@ namespace OrderManagement_Api.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpPost]
+        [ActionName("Validate_New")]
+        public HttpResponseMessage Post_test(Users Obj1)
+        {
+
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+        }
+
+        public HttpResponseMessage Murthy(Users obj)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+
+        }
     }
 }
