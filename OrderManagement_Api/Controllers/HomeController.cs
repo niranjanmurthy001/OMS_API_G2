@@ -14,5 +14,10 @@ namespace OrderManagement_Api.Controllers
 
             return View();
         }
+        public ActionResult Test()
+        {
+
+            return View();
+        }
     }
 }
