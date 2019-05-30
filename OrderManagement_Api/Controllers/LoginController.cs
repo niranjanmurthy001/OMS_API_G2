@@ -109,7 +109,13 @@ namespace OrderManagement_Api.Controllers
 
 
         }
-        
 
+        [HttpPost]
+        [ActionName("Validate")]
+        public HttpResponseMessage Post_New(Users Obj1)
+        {
+
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+        }
     }
 }
