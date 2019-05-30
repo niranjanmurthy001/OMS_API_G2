@@ -131,5 +131,14 @@ namespace OrderManagement_Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
 
         }
+
+        public HttpResponseMessage test(Users obj)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
+
+        }
+
+
+
     }
 }
