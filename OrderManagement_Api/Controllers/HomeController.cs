@@ -25,5 +25,12 @@ namespace OrderManagement_Api.Controllers
 
             return View();
         }
+
+        public ActionResult One()
+        {
+
+            return View();
+        }
+
     }
 }
