@@ -19,5 +19,11 @@ namespace OrderManagement_Api.Controllers
 
             return View();
         }
+
+        public ActionResult Niranjan()
+        {
+
+            return View();
+        }
     }
 }
