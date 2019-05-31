@@ -13,7 +13,7 @@ namespace OrderManagement_Api.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2","value3","value4","value5","value6","new Value","Niranjan value","qeqweqwe"};
+            return new string[] { "value1", "value2","value3","value4","value5","value6"};
         }
 
         // GET api/values/5
