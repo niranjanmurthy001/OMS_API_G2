@@ -15,6 +15,7 @@ namespace OrderManagement_Api.Models
         public int Job_Role_Id { get; set; }
         public int Application_Login_Type { get; set; }
         public string DRN_Emp_Code { get; set; }
+        public string Image_File_Name { get; set; }
 
     }
 }
