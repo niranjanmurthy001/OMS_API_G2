@@ -7,6 +7,7 @@ using System.Web.Http;
 using OrderManagement_Api.ModelsRespository.IRepository;
 using OrderManagement_Api.Models;
 using OrderManagement_Api.ModelsRespository.Repository;
+
 using System.Data;
 
 namespace OrderManagement_Api.Controllers
@@ -52,7 +53,7 @@ namespace OrderManagement_Api.Controllers
 
                         _Error = 0;
                         _Error_Message = "User Name Does Not Exist";
-                        return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error,_Error_Message=_Error_Message, Users = obj_User }, Configuration.Formatters.JsonFormatter);
+                        return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error,_Error_Message=_Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
 
                     }
                     else
@@ -77,7 +78,7 @@ namespace OrderManagement_Api.Controllers
                 if (dt_User_Count.Rows.Count > 0 && _Confirm_User_Name == _User_Name && _Confirm_Password == _Password)
                 {
 
-                    li_Result.Add(new Users() { User_id = _User_Id, User_Name = _User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id });
+                    li_Result.Add(new Users() { User_id = _User_Id, User_Name = _Confirm_User_Name,Employee_Name=_Employee_Name,DRN_Emp_Code= _Confirm_User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id });
                     _Error = 0;
                     _Error_Message = "Valid User";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
@@ -86,69 +87,23 @@ namespace OrderManagement_Api.Controllers
                 else
                 {
                   
-
                     _Error = 1;
                     _Error_Message = "Wrong User Name and Password";
-                    return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message }, Configuration.Formatters.JsonFormatter);
-
+                    return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
                 }
-
-
-
             }
             catch (Exception ex)
-            {
-             
-               
+            {                            
                 _Error = 1;
                 _Error_Message = "Exception";
-                return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message}, Configuration.Formatters.JsonFormatter);
+                return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
 
             }
 
 
 
         }
-
-        [HttpPost]
-        [ActionName("Validate_Test")]
-        public HttpResponseMessage Post_New(Users Obj1)
-        {
-
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-        }
-
-        [HttpPost]
-        [ActionName("Validate_New")]
-        public HttpResponseMessage Post_test(Users Obj1)
-        {
-
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-        }
-
-        public HttpResponseMessage Murthy(Users obj)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-
-        }
-
-        public HttpResponseMessage test(Users obj)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-
-        }
-
-        public HttpResponseMessage Heloo(Users User)
-        {
-
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-        }
-
-        public HttpResponseMessage Niranjan(Users uus)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, Configuration.Formatters.JsonFormatter);
-        }
-
+        
 
     }
 }
