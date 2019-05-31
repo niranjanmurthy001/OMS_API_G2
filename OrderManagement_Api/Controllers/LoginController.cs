@@ -15,7 +15,7 @@ namespace OrderManagement_Api.Controllers
     public class LoginController : ApiController
     {
         IUser Iuser_reportory = new RUser();
-        string _User_Name, _Confirm_User_Name, _Confirm_Password, _Password, _Employee_Name;
+        string _User_Name, _Confirm_User_Name, _Confirm_Password, _Password, _Employee_Name, _Image_File_Name;
         int _User_Id, _Branch_Id, _User_Role_Id, _Application_Login_Id;
 
 
@@ -33,7 +33,7 @@ namespace OrderManagement_Api.Controllers
         {
             int _Error = 0;
             string _Error_Message = "";
-         
+
             List<Users> li_Result = new List<Users>();
             try
             {
@@ -45,16 +45,13 @@ namespace OrderManagement_Api.Controllers
                 list_User_Count.Add("@DRN_Emp_Code", obj_User.DRN_Emp_Code);
 
                 dt_User_Count = DbExecute.GetMultipleRecordByParam("Sp_User", list_User_Count);
-
                 if (dt_User_Count.Rows.Count > 0)
                 {
                     if (string.IsNullOrEmpty(dt_User_Count.Rows[0]["DRN_Emp_Code"].ToString().ToUpper()))
                     {
-
                         _Error = 0;
                         _Error_Message = "User Name Does Not Exist";
-                        return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error,_Error_Message=_Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
-
+                        return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
                     }
                     else
                     {
@@ -68,17 +65,15 @@ namespace OrderManagement_Api.Controllers
                         _Branch_Id = int.Parse(dt_User_Count.Rows[0]["Branch_ID"].ToString());
                         _User_Role_Id = int.Parse(dt_User_Count.Rows[0]["User_RoleId"].ToString());
                         _Application_Login_Id = int.Parse(dt_User_Count.Rows[0]["Application_Login_Type"].ToString());
-
+                        _Image_File_Name = dt_User_Count.Rows[0]["Image_File_Name"].ToString();
                     }
-
-
                 }
 
 
                 if (dt_User_Count.Rows.Count > 0 && _Confirm_User_Name == _User_Name && _Confirm_Password == _Password)
                 {
 
-                    li_Result.Add(new Users() { User_id = _User_Id, User_Name = _Confirm_User_Name,Employee_Name=_Employee_Name,DRN_Emp_Code= _Confirm_User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id });
+                    li_Result.Add(new Users() { User_id = _User_Id, User_Name = _Confirm_User_Name, Employee_Name = _Employee_Name, DRN_Emp_Code = _Confirm_User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id,Image_File_Name=_Image_File_Name });
                     _Error = 0;
                     _Error_Message = "Valid User";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
@@ -86,14 +81,14 @@ namespace OrderManagement_Api.Controllers
                 }
                 else
                 {
-                  
+
                     _Error = 1;
                     _Error_Message = "Wrong User Name and Password";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
                 }
             }
             catch (Exception ex)
-            {                            
+            {
                 _Error = 1;
                 _Error_Message = "Exception";
                 return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
@@ -103,7 +98,7 @@ namespace OrderManagement_Api.Controllers
 
 
         }
-        
+
 
     }
 }
