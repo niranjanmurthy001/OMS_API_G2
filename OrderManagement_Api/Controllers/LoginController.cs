@@ -33,17 +33,13 @@ namespace OrderManagement_Api.Controllers
         {
             int _Error = 0;
             string _Error_Message = "";
-
             List<Users> li_Result = new List<Users>();
             try
             {
-
                 var list_User_Count = new Dictionary<string, object>();
-                System.Data.DataTable dt_User_Count = new DataTable();
-
+                DataTable dt_User_Count = new DataTable();
                 list_User_Count.Add("@Trans", "GET_USER_BY_EMP_CODE");
                 list_User_Count.Add("@DRN_Emp_Code", obj_User.DRN_Emp_Code);
-
                 dt_User_Count = DbExecute.GetMultipleRecordByParam("Sp_User", list_User_Count);
                 if (dt_User_Count.Rows.Count > 0)
                 {
@@ -57,7 +53,6 @@ namespace OrderManagement_Api.Controllers
                     {
                         _User_Name = obj_User.DRN_Emp_Code.ToString().ToUpper();
                         _Password = obj_User.Password.Trim();
-
                         _Confirm_User_Name = dt_User_Count.Rows[0]["DRN_Emp_Code"].ToString().ToUpper();
                         _Confirm_Password = dt_User_Count.Rows[0]["Password"].ToString();
                         _Employee_Name = dt_User_Count.Rows[0]["Employee_Name"].ToString();
@@ -68,20 +63,15 @@ namespace OrderManagement_Api.Controllers
                         _Image_File_Name = dt_User_Count.Rows[0]["Image_File_Name"].ToString();
                     }
                 }
-
-
                 if (dt_User_Count.Rows.Count > 0 && _Confirm_User_Name == _User_Name && _Confirm_Password == _Password)
                 {
-
                     li_Result.Add(new Users() { User_id = _User_Id, User_Name = _Confirm_User_Name, Employee_Name = _Employee_Name, DRN_Emp_Code = _Confirm_User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id,Image_File_Name=_Image_File_Name });
                     _Error = 0;
                     _Error_Message = "Valid User";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
-
                 }
                 else
                 {
-
                     _Error = 1;
                     _Error_Message = "Wrong User Name and Password";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
@@ -92,13 +82,7 @@ namespace OrderManagement_Api.Controllers
                 _Error = 1;
                 _Error_Message = "Exception";
                 return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
-
             }
-
-
-
         }
-
-
     }
 }
