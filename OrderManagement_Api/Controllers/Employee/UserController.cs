@@ -1,4 +1,5 @@
-﻿using OrderManagement_Api.Models;
+﻿using Newtonsoft.Json;
+using OrderManagement_Api.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.Http;
@@ -30,9 +31,10 @@ namespace OrderManagement_Api.Controllers.Employee
                             EmployeeName = row["User_Name"],
                             Code = row["DRN_Emp_Code"],
                             Branch = row["Branch_Name"],
-                            Role = row["Role_Name"],
+                            Role = row["Emp_Job_Role"],
                             Reporting = row["Reporting"],
-                            Shift = row["Shift_Type_Name"]
+                            Shift = row["Shift_Type_Name"],
+                            LoginTime = row["Login_Time"]
                         };
                         return Ok(userDetails);
                     }
@@ -46,6 +48,50 @@ namespace OrderManagement_Api.Controllers.Employee
             else
             {
                 return NotFound();
+            }
+        }
+
+        [HttpPost]
+        [ActionName("Timings")]
+        public IHttpActionResult GetTimings(dynamic data)
+        {
+            if (data == null) return NotFound();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_Production_Reports", dictionary);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    return Ok(dt);
+                }
+                return NotFound();
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+        }
+        [HttpPut]
+        [ActionName("ChangePassword")]
+        public IHttpActionResult ChangePassword(dynamic data)
+        {
+            if (data == null) return NotFound();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                int result = DbExecute.ExecuteSPForCRUD("Sp_User", dictionary);
+                if (result > 0)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
             }
         }
     }

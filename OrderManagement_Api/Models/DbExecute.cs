@@ -111,8 +111,8 @@ namespace OrderManagement_Api.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var p in param)
                 {
-                    cmdLoadBillfrom.Parameters.AddWithValue("@", param);
-                    //cmd.Parameters.AddWithValue((string)parameterEntry.Key, parameterEntry.Value);
+                    //cmdLoadBillfrom.Parameters.AddWithValue("@", param);
+                    cmd.Parameters.AddWithValue((string)p.Key, p.Value);
                 }
                 int n = cmd.ExecuteNonQuery();
                 con.Close();
