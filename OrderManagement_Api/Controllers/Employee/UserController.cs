@@ -45,10 +45,7 @@ namespace OrderManagement_Api.Controllers.Employee
                     return StatusCode(ex.Response.StatusCode);
                 }
             }
-            else
-            {
-                return NotFound();
-            }
+            else return NotFound();
         }
 
         [HttpPost]
