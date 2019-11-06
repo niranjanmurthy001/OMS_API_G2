@@ -68,6 +68,26 @@ namespace OrderManagement_Api.Controllers.Employee
                 return StatusCode(ex.Response.StatusCode);
             }
         }
+        [HttpPost]
+        [ActionName("Attendance")]
+        public IHttpActionResult GetAttendance(dynamic data)
+        {
+            if (data == null) return NotFound();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("SP_User_Login_Details", dictionary);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    return Ok(dt);
+                }
+                return NotFound();
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+        }
         [HttpPut]
         [ActionName("ChangePassword")]
         public IHttpActionResult ChangePassword(dynamic data)
