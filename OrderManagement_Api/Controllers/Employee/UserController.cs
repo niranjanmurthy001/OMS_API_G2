@@ -2,6 +2,7 @@
 using OrderManagement_Api.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Employee
@@ -111,6 +112,28 @@ namespace OrderManagement_Api.Controllers.Employee
                 return StatusCode(ex.Response.StatusCode);
             }
         }
+
+        [HttpPost]
+        [ActionName("Efficiency")]
+        public IHttpActionResult GetEfficiency(dynamic data)
+        {
+            if (data == null) return NotFound();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_Score_Board_Updated", dictionary);
+                if (dt != null && dt.Rows.Count > 0)
+                {                  
+                    return Ok(dt);
+                }
+                return NotFound();
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+        }
+
     }
 }
 
