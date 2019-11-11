@@ -7,7 +7,6 @@ using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Employee
 {
-
     public class UserController : ApiController
     {
         [HttpGet]
@@ -48,7 +47,6 @@ namespace OrderManagement_Api.Controllers.Employee
             }
             else return NotFound();
         }
-
         [HttpPost]
         [ActionName("Timings")]
         public IHttpActionResult GetTimings(dynamic data)
@@ -112,7 +110,6 @@ namespace OrderManagement_Api.Controllers.Employee
                 return StatusCode(ex.Response.StatusCode);
             }
         }
-
         [HttpPost]
         [ActionName("Efficiency")]
         public IHttpActionResult GetEfficiency(dynamic data)
@@ -133,7 +130,6 @@ namespace OrderManagement_Api.Controllers.Employee
                 return StatusCode(ex.Response.StatusCode);
             }
         }
-
     }
 }
 
