@@ -2,7 +2,7 @@
 using OrderManagement_Api.Models;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Net;
 using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Employee
@@ -34,7 +34,8 @@ namespace OrderManagement_Api.Controllers.Employee
                             Role = row["Emp_Job_Role"],
                             Reporting = row["Reporting"],
                             Shift = row["Shift_Type_Name"],
-                            LoginTime = row["Login_Time"]
+                            LoginTime = row["Login_Time"],
+                            Theme = row["Theme"]
                         };
                         return Ok(userDetails);
                     }
@@ -45,13 +46,13 @@ namespace OrderManagement_Api.Controllers.Employee
                     return StatusCode(ex.Response.StatusCode);
                 }
             }
-            else return NotFound();
+            else return BadRequest();
         }
         [HttpPost]
         [ActionName("Timings")]
         public IHttpActionResult GetTimings(dynamic data)
         {
-            if (data == null) return NotFound();
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -71,7 +72,7 @@ namespace OrderManagement_Api.Controllers.Employee
         [ActionName("Attendance")]
         public IHttpActionResult GetAttendance(dynamic data)
         {
-            if (data == null) return NotFound();
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -91,7 +92,7 @@ namespace OrderManagement_Api.Controllers.Employee
         [ActionName("ChangePassword")]
         public IHttpActionResult ChangePassword(dynamic data)
         {
-            if (data == null) return NotFound();
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -109,18 +110,41 @@ namespace OrderManagement_Api.Controllers.Employee
             {
                 return StatusCode(ex.Response.StatusCode);
             }
-        }
+        }      
         [HttpPost]
-        [ActionName("Efficiency")]
-        public IHttpActionResult GetEfficiency(dynamic data)
+        [ActionName("Theme")]
+        public IHttpActionResult SetTheme(dynamic data)
         {
-            if (data == null) return NotFound();
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
-                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_Score_Board_Updated", dictionary);
+                int result = DbExecute.ExecuteSPForCRUD("Sp_User", dictionary);
+                if (result > 0)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.NotModified);
+                }
+            }
+            catch (HttpResponseException e)
+            {
+                return StatusCode(e.Response.StatusCode);
+            }
+        }
+        [HttpPost]
+        [ActionName("Errors")]
+        public IHttpActionResult Errors(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_Error_Dashboard", dictionary);
                 if (dt != null && dt.Rows.Count > 0)
-                {                  
+                {
                     return Ok(dt);
                 }
                 return NotFound();

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data.Entity;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using System.Configuration;
 namespace OrderManagement_Api.Models
 {
     public class DbExecute
@@ -18,82 +15,125 @@ namespace OrderManagement_Api.Models
         public static DataTable GetMultipleRecord(string store_procedure_name)
         {
             SqlConnection con = new SqlConnection(ConnectionString);
-            DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-            using (con)
+            try
             {
-                cmdLoadBillfrom.Connection = con;
+                DataTable dt = new DataTable();
+                SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
                 cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                using (con)
                 {
-                    sda.Fill(dt);
+                    cmdLoadBillfrom.Connection = con;
+                    cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                    {
+                        sda.Fill(dt);
+                    }
                 }
+                return dt;
             }
-            return dt;
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         // Function to get all records based on some parameters -- Parameter -> Procedure name &  Array of condition / single also
         public static DataTable GetMultipleRecordByParam(string store_procedure_name, Dictionary<string, object> param)
         {
             SqlConnection con = new SqlConnection(ConnectionString);
-            DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-            if (param.Count() > 0)
+            try
             {
-                foreach (var p in param)
-                {
-                    cmdLoadBillfrom.Parameters.AddWithValue(p.Key, p.Value);
-                }
-            }
-            using (con)
-            {
-                cmdLoadBillfrom.Connection = con;
+                DataTable dt = new DataTable();
+                SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
                 cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                if (param.Count() > 0)
                 {
-                    sda.Fill(dt);
+                    foreach (var p in param)
+                    {
+                        cmdLoadBillfrom.Parameters.AddWithValue(p.Key, p.Value);
+                    }
                 }
+                using (con)
+                {
+                  //  cmdLoadBillfrom.Connection = con;
+                    //cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                    {
+                        sda.Fill(dt);
+                    }
+                }
+                return dt;
             }
-            return dt;
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         // Function to get all records based on some parameters -- Parameter -> Procedure name &  string as where clause
         public static DataTable GetMultipleRecordByStringParam(string store_procedure_name, string param)
         {
             SqlConnection con = new SqlConnection(ConnectionString);
-            DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-            cmdLoadBillfrom.Parameters.AddWithValue("mywhere", param);
-            using (con)
+            try
             {
-                cmdLoadBillfrom.Connection = con;
+                DataTable dt = new DataTable();
+                SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
                 cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                cmdLoadBillfrom.Parameters.AddWithValue("mywhere", param);
+                using (con)
                 {
-                    sda.Fill(dt);
+                    cmdLoadBillfrom.Connection = con;
+                    cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                    {
+                        sda.Fill(dt);
+                    }
                 }
+                return dt;
             }
-            return dt;
+            catch (Exception ex)
+            {
+                return null;
+            }finally
+            {
+                con.Close();
+            }
         }
         public static DataTable GetMultipleRecordByString(string store_procedure_name, string param)
         {
-            SqlConnection con = new SqlConnection(ConnectionString);
-            DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-            cmdLoadBillfrom.Parameters.AddWithValue("mywhere", param);
-            using (con)
+                SqlConnection con = new SqlConnection(ConnectionString);
+            try
             {
-                cmdLoadBillfrom.Connection = con;
+                DataTable dt = new DataTable();
+                SqlCommand cmdLoadBillfrom = new SqlCommand(store_procedure_name, con);
                 cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                cmdLoadBillfrom.Parameters.AddWithValue("mywhere", param);
+                using (con)
                 {
-                    sda.Fill(dt);
+                    cmdLoadBillfrom.Connection = con;
+                    cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
+                    {
+                        sda.Fill(dt);
+                    }
                 }
+                return dt;
             }
-            return dt;
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         public static int ExecuteSPForCRUD(string Procedure_Name, Dictionary<string, object> param)
@@ -144,7 +184,6 @@ namespace OrderManagement_Api.Models
             DataTable dt = new DataTable();
             SqlCommand cmdLoadBillfrom = new SqlCommand(Procedure_Name, con);
             cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
-
             object value;
             try
             {
@@ -154,8 +193,8 @@ namespace OrderManagement_Api.Models
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var p in param)
                 {
-                    cmdLoadBillfrom.Parameters.AddWithValue("@", param);
-                    //cmd.Parameters.AddWithValue((string)parameterEntry.Key, parameterEntry.Value);
+                    // cmdLoadBillfrom.Parameters.AddWithValue("@", param);
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
                 }
                 value = cmd.ExecuteScalar();
                 con.Close();
@@ -169,16 +208,8 @@ namespace OrderManagement_Api.Models
             finally
             {
                 con.Close();
-
             }
-
             return value;
-
-
         }
-
-
-
-
     }
 }

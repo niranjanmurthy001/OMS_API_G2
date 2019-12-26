@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using OrderManagement_Api.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Employee
@@ -14,8 +11,9 @@ namespace OrderManagement_Api.Controllers.Employee
     {
         [HttpPost]
         [ActionName("AccuracySummary")]
-        public HttpResponseMessage Post(dynamic data)
+        public IHttpActionResult Post(dynamic data)
         {
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -29,19 +27,20 @@ namespace OrderManagement_Api.Controllers.Employee
                         Errors = row["No_Of_Errors"],
                         Accuracy = row["Accuracy"]
                     }).ToList();
-                    return Request.CreateResponse(HttpStatusCode.OK, accuracyList);
+                    return Ok(accuracyList);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return NotFound();
             }
             catch (HttpResponseException e)
             {
-                return Request.CreateResponse(e.Response.StatusCode);
+                return StatusCode(e.Response.StatusCode);
             }
         }
         [HttpPost]
         [ActionName("CompletedOrders")]
-        public HttpResponseMessage AccuracyDetails(dynamic data)
+        public IHttpActionResult AccuracyDetails(dynamic data)
         {
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -73,34 +72,36 @@ namespace OrderManagement_Api.Controllers.Employee
                         Reporting_To_1 = row["Reporting_To_1"],
                         Reporting_To_2 = row["Reporting_To_2"]
                     }).ToList();
-                    return Request.CreateResponse(HttpStatusCode.OK, completedOrdersList);
+                    return Ok(completedOrdersList);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return NotFound();
             }
             catch (HttpResponseException e)
             {
-                return Request.CreateResponse(e.Response.StatusCode);
+                return StatusCode(e.Response.StatusCode);
             }
         }
         [HttpPost]
         [ActionName("UpdateTempTable")]
-        public HttpResponseMessage UpdateTempTable(dynamic data)
+        public IHttpActionResult UpdateTempTable(dynamic data)
         {
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
                 DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_Employee_Production_Score_Board", dictionary);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Ok();
             }
             catch (HttpResponseException e)
             {
-                return Request.CreateResponse(e.Response.StatusCode);
+                return StatusCode(e.Response.StatusCode);
             }
         }
         [HttpPost]
         [ActionName("Errors")]
-        public HttpResponseMessage ErrorDetails(dynamic data)
+        public IHttpActionResult ErrorDetails(dynamic data)
         {
+            if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
@@ -129,13 +130,13 @@ namespace OrderManagement_Api.Controllers.Employee
                         Reporting_2 = row["Reporting_2"],
                         Production_Date = row["Production_Date"]
                     }).ToList();
-                    return Request.CreateResponse(HttpStatusCode.OK, errorsList);
+                    return Ok(errorsList);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return NotFound();
             }
             catch (HttpResponseException e)
             {
-                return Request.CreateResponse(e.Response.StatusCode);
+                return StatusCode(e.Response.StatusCode);
             }
         }
     }
