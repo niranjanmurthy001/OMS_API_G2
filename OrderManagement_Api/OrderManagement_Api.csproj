@@ -222,7 +222,9 @@
     <Compile Include="Controllers\Dashboard\TValue.cs" />
     <Compile Include="Controllers\Employee\AccuracyController.cs" />
     <Compile Include="Controllers\Employee\BreakIdleReportsController.cs" />
+    <Compile Include="Controllers\Employee\BreakModeController.cs" />
     <Compile Include="Controllers\Employee\EfficiencyController.cs" />
+    <Compile Include="Controllers\Employee\IdleTrackModeController.cs" />
     <Compile Include="Controllers\Employee\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
