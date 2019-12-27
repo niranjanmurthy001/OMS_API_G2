@@ -1,0 +1,35 @@
+﻿using Newtonsoft.Json;
+using OrderManagement_Api.Models;
+using System.Collections.Generic;
+using System.Data;
+using System.Web.Http;
+
+namespace OrderManagement_Api.Controllers.Employee
+{
+    public class NotificationController : ApiController
+    {
+        [HttpPost]
+        [ActionName("OrderNotification")]
+        public IHttpActionResult Ordernotification(dynamic data)
+        {
+            if (data == null) return BadRequest("Not Found");
+            try
+            {
+                var value = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_General_Updates", value);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    return Ok(dt);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+        }
+    }
+}
