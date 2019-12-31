@@ -16,7 +16,7 @@ namespace OrderManagement_Api.Controllers.Employee
             try
             {
                 var value = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
-                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_General_Updates", value);
+                DataTable dt = DbExecute.GetMultipleRecordByParam("usp_Message_Notification", value);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     return Ok(dt);
