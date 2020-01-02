@@ -155,6 +155,87 @@ namespace OrderManagement_Api.Controllers.Employee
                 return StatusCode(ex.Response.StatusCode);
             }
         }
+
+        [HttpPost]
+        [ActionName("OrdersCount")]
+        public IHttpActionResult Processing_Order_Count(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Usp_Order_Processing_Scoreboard", dictionary);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var ordersCount = new
+                    {
+                        LiveOrders = dt.Rows[0]["L_Order_Count"],
+                        ReworkOrders = dt.Rows[0]["R_Order_Count"],
+                        SuperQcOrders = dt.Rows[0]["S_Order_Count"]
+                    };
+                    return Ok(ordersCount);
+                }
+                return NotFound();
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+
+        }
+
+        [HttpPost]
+        [ActionName("TimeDifference")]
+        public IHttpActionResult TimeDifference(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_User_Order_Ideal_Timings", dictionary);
+                return Ok(dt);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        [HttpPost]
+        [ActionName("GetMaxIdleTimeId")]
+        public IHttpActionResult GetMaxIdleTimeId(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_User_Order_Ideal_Timings", dictionary);
+                return Ok(dt);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        [HttpPost]
+        [ActionName("InsertIdleTime")]
+        public IHttpActionResult InsertIdleTime(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForScalar("Sp_User_Order_Ideal_Timings", dictionary);
+                return Ok(val);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        [HttpPost]
+        [ActionName("UpdateIdleTime")]
+        public IHttpActionResult UpdateIdleTime(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForCRUD("Sp_User_Order_Ideal_Timings", dictionary);
+                return Ok(val);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
     }
 }
 
