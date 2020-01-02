@@ -236,6 +236,19 @@ namespace OrderManagement_Api.Controllers.Employee
             }
             catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
         }
+        [HttpPost]
+        [ActionName("UpdateLoginDate")]
+        public IHttpActionResult UpdateLoginDate(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForCRUD("Sp_User", dictionary);
+                return Ok(val);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
     }
 }
 
