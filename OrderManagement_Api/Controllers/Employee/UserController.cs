@@ -35,7 +35,8 @@ namespace OrderManagement_Api.Controllers.Employee
                             Reporting = row["Reporting"],
                             Shift = row["Shift_Type_Name"],
                             LoginTime = row["Login_Time"],
-                            Theme = row["Theme"]
+                            Theme = row["Theme"],
+                            OperationId = row["Operation_Id"]
                         };
                         return Ok(userDetails);
                     }
@@ -110,7 +111,7 @@ namespace OrderManagement_Api.Controllers.Employee
             {
                 return StatusCode(ex.Response.StatusCode);
             }
-        }      
+        }
         [HttpPost]
         [ActionName("Theme")]
         public IHttpActionResult SetTheme(dynamic data)
