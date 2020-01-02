@@ -231,6 +231,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Order\CommentController.cs" />
     <Compile Include="Controllers\Order\OrderAlertController.cs" />
+    <Compile Include="Controllers\Order\OrderHistoryController.cs" />
     <Compile Include="Controllers\Order\OrderInstructionController.cs" />
     <Compile Include="Controllers\Order\Order_Check_ListController.cs" />
     <Compile Include="Controllers\Order\Order_ValidateController.cs" />
