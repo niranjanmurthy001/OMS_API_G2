@@ -175,7 +175,16 @@ namespace OrderManagement_Api.Controllers.Employee
                     };
                     return Ok(ordersCount);
                 }
-                return NotFound();
+                else
+                {
+                    var ordersCount = new
+                    {
+                        LiveOrders = 0,
+                        ReworkOrders = 0,
+                        SuperQcOrders = 0
+                    };
+                    return Ok(ordersCount);
+                }
             }
             catch (HttpResponseException ex)
             {
