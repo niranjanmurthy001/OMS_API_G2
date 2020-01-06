@@ -192,7 +192,20 @@ namespace OrderManagement_Api.Controllers.Employee
             }
 
         }
-
+        [HttpPost]
+        [ActionName("UpdateLoginDate")]
+        public IHttpActionResult UpdateLoginDate(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForCRUD("Sp_User", dictionary);
+                return Ok(val);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        #region Idle Time
         [HttpPost]
         [ActionName("TimeDifference")]
         public IHttpActionResult TimeDifference(dynamic data)
@@ -245,19 +258,61 @@ namespace OrderManagement_Api.Controllers.Employee
             }
             catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
         }
+        #endregion
+        #region Production Time        
         [HttpPost]
-        [ActionName("UpdateLoginDate")]
-        public IHttpActionResult UpdateLoginDate(dynamic data)
+        [ActionName("ProductionTimeDifference")]
+        public IHttpActionResult ProductionTimeDifference(dynamic data)
         {
             if (data == null) return BadRequest();
             try
             {
                 var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
-                var val = DbExecute.ExecuteSPForCRUD("Sp_User", dictionary);
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_User_Production_Timing", dictionary);
+                return Ok(dt);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        [HttpPost]
+        [ActionName("GetMaxProductionTimeId")]
+        public IHttpActionResult GetMaxProdTimeId(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                DataTable dt = DbExecute.GetMultipleRecordByParam("Sp_User_Production_Timing", dictionary);
+                return Ok(dt);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        [HttpPost]
+        [ActionName("InsertProductionTime")]
+        public IHttpActionResult InsertProductionTime(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForScalar("Sp_User_Production_Timing", dictionary);
                 return Ok(val);
             }
             catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
         }
+        [HttpPost]
+        [ActionName("UpdateProductionTime")]
+        public IHttpActionResult UpdateProductionTime(dynamic data)
+        {
+            if (data == null) return BadRequest();
+            try
+            {
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
+                var val = DbExecute.ExecuteSPForCRUD("Sp_User_Production_Timing", dictionary);
+                return Ok(val);
+            }
+            catch (HttpResponseException e) { return StatusCode(e.Response.StatusCode); }
+        }
+        #endregion
     }
 }
 
