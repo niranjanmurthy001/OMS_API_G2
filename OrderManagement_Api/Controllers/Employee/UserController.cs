@@ -28,6 +28,7 @@ namespace OrderManagement_Api.Controllers.Employee
                         DataRow row = dt.Rows[0];
                         var userDetails = new
                         {
+                            EmployeeImage=row["User_Photo"],
                             EmployeeName = row["User_Name"],
                             Code = row["DRN_Emp_Code"],
                             Branch = row["Branch_Name"],
