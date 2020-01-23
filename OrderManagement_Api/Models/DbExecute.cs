@@ -59,7 +59,7 @@ namespace OrderManagement_Api.Models
                 }
                 using (con)
                 {
-                  //  cmdLoadBillfrom.Connection = con;
+                   //cmdLoadBillfrom.Connection = con;
                     //cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmdLoadBillfrom))
                     {
