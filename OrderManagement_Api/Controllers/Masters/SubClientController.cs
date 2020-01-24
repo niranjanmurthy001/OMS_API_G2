@@ -5,11 +5,11 @@ using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Masters
 {
-    public class ClientController : ApiController
+    public class SubClientController : ApiController
     {
         [HttpPost]
-        [ActionName("BindClients")]
-        public IHttpActionResult BindClients(dynamic data)
+        [ActionName("BindSubClients")]
+        public IHttpActionResult SubClients(dynamic data)
         {
             if (data == null) return BadRequest("Not Found");
             try
@@ -27,5 +27,6 @@ namespace OrderManagement_Api.Controllers.Masters
                 return StatusCode(ex.Response.StatusCode);
             }
         }
+
     }
 }

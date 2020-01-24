@@ -5,11 +5,11 @@ using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Masters
 {
-    public class ClientController : ApiController
+    public class DepartmentTypeController : ApiController
     {
         [HttpPost]
-        [ActionName("BindClients")]
-        public IHttpActionResult BindClients(dynamic data)
+        [ActionName("BindDeptType")]
+        public IHttpActionResult Departmenttype(dynamic data)
         {
             if (data == null) return BadRequest("Not Found");
             try

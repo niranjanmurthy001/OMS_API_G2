@@ -230,6 +230,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Masters\ClientController.cs" />
+    <Compile Include="Controllers\Masters\DepartmentTypeController.cs" />
+    <Compile Include="Controllers\Masters\ProjectTypeController.cs" />
+    <Compile Include="Controllers\Masters\SubClientController.cs" />
     <Compile Include="Controllers\Order\CommentController.cs" />
     <Compile Include="Controllers\Order\OrderAlertController.cs" />
     <Compile Include="Controllers\Order\OrderHistoryController.cs" />
