@@ -234,6 +234,7 @@
     <Compile Include="Controllers\Masters\ProjectTypeController.cs" />
     <Compile Include="Controllers\Masters\SubClientController.cs" />
     <Compile Include="Controllers\Order\CommentController.cs" />
+    <Compile Include="Controllers\Order\EmailSetttingsController.cs" />
     <Compile Include="Controllers\Order\OrderAlertController.cs" />
     <Compile Include="Controllers\Order\OrderHistoryController.cs" />
     <Compile Include="Controllers\Order\OrderInstructionController.cs" />
