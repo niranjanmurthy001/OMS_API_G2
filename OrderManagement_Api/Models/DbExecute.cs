@@ -140,8 +140,7 @@ namespace OrderManagement_Api.Models
         {
             SqlConnection con = new SqlConnection(ConnectionString);
             DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(Procedure_Name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+        
             int count = 0;
             try
             {
@@ -165,7 +164,7 @@ namespace OrderManagement_Api.Models
                     count = 0;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 count = 0;
                 con.Close();
@@ -182,8 +181,7 @@ namespace OrderManagement_Api.Models
         {
             SqlConnection con = new SqlConnection(ConnectionString);
             DataTable dt = new DataTable();
-            SqlCommand cmdLoadBillfrom = new SqlCommand(Procedure_Name, con);
-            cmdLoadBillfrom.CommandType = CommandType.StoredProcedure;
+            
             object value;
             try
             {
@@ -200,7 +198,7 @@ namespace OrderManagement_Api.Models
                 con.Close();
                 return value;
             }
-            catch
+            catch(Exception)
             {
                 value = 0;
                 con.Close();

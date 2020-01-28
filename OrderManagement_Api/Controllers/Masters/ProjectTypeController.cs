@@ -15,7 +15,7 @@ namespace OrderManagement_Api.Controllers.Masters
             try
             {
                 var value = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
-                var dt = DbExecute.GetMultipleRecordByParam("Sp_Process_Settings", value);
+                var dt = DbExecute.GetMultipleRecordByParam("usp_Master_Client_Process", value);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     return Ok(dt);
