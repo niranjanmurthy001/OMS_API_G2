@@ -229,11 +229,7 @@
     <Compile Include="Controllers\Employee\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\Masters\ClientController.cs" />
-    <Compile Include="Controllers\Masters\Client_ProcessController.cs" />
-    <Compile Include="Controllers\Masters\DepartmentTypeController.cs" />
-    <Compile Include="Controllers\Masters\ProjectTypeController.cs" />
-    <Compile Include="Controllers\Masters\SubClientController.cs" />
+    <Compile Include="Controllers\Masters\MasterController.cs" />
     <Compile Include="Controllers\Order\CommentController.cs" />
     <Compile Include="Controllers\Order\EmailSetttingsController.cs" />
     <Compile Include="Controllers\Order\OrderAlertController.cs" />
