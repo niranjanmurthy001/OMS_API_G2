@@ -151,7 +151,7 @@ namespace OrderManagement_Api.Models
                 foreach (var p in param)
                 {
                     //cmdLoadBillfrom.Parameters.AddWithValue("@", param);
-                    cmd.Parameters.AddWithValue((string)p.Key, p.Value);
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
                 }
                 int n = cmd.ExecuteNonQuery();
                 con.Close();
