@@ -62,8 +62,10 @@ namespace OrderManagement_Api.Controllers
                         _Application_Login_Id = int.Parse(dt_User_Count.Rows[0]["Application_Login_Type"].ToString());
                         _Image_File_Name = dt_User_Count.Rows[0]["Image_File_Name"].ToString();
                         _Employee_Type = dt_User_Count.Rows[0]["Employee_Type"].ToString();
-                        _ShiftType= int.Parse(dt_User_Count.Rows[0]["Shift_Type_Id"].ToString());
-
+                        if(_ShiftType !=0)
+                        {
+                            _ShiftType = int.Parse(dt_User_Count.Rows[0]["Shift_Type_Id"].ToString());
+                        }                        
                     }
                 }
                 if (dt_User_Count.Rows.Count > 0 && _Confirm_User_Name == _User_Name && _Confirm_Password == _Password)
