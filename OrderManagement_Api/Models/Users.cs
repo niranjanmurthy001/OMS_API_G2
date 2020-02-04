@@ -17,6 +17,7 @@ namespace OrderManagement_Api.Models
         public string DRN_Emp_Code { get; set; }
         public string Image_File_Name { get; set; }
         public string Employee_Type { get; set; }
-
+        public int Shift_Type_Id { get; set; }
+        public int Branch_ID { get; set; }
     }
 }
