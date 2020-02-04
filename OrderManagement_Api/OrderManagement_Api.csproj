@@ -226,6 +226,7 @@
     <Compile Include="Controllers\Employee\EfficiencyController.cs" />
     <Compile Include="Controllers\Employee\IdleTrackModeController.cs" />
     <Compile Include="Controllers\Employee\NotificationController.cs" />
+    <Compile Include="Controllers\Employee\TopPerformersController.cs" />
     <Compile Include="Controllers\Employee\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

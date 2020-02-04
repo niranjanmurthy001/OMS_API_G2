@@ -16,7 +16,7 @@ namespace OrderManagement_Api.Controllers
     {
         IUser Iuser_reportory = new RUser();
         string _User_Name, _Confirm_User_Name, _Confirm_Password, _Password, _Employee_Name, _Employee_Type,_Image_File_Name;
-        int _User_Id, _Branch_Id, _User_Role_Id, _Application_Login_Id;
+        int _User_Id, _Branch_Id, _User_Role_Id, _Application_Login_Id ,_ShiftType;
 
 
         //[HttpPost]
@@ -62,13 +62,13 @@ namespace OrderManagement_Api.Controllers
                         _Application_Login_Id = int.Parse(dt_User_Count.Rows[0]["Application_Login_Type"].ToString());
                         _Image_File_Name = dt_User_Count.Rows[0]["Image_File_Name"].ToString();
                         _Employee_Type = dt_User_Count.Rows[0]["Employee_Type"].ToString();
-
+                        _ShiftType= int.Parse(dt_User_Count.Rows[0]["Shift_Type_Id"].ToString());
 
                     }
                 }
                 if (dt_User_Count.Rows.Count > 0 && _Confirm_User_Name == _User_Name && _Confirm_Password == _Password)
                 {
-                    li_Result.Add(new Users() { User_id = _User_Id, User_Name = _Confirm_User_Name, Employee_Name = _Employee_Name, DRN_Emp_Code = _Confirm_User_Name, User_RoleId = _User_Role_Id, Application_Login_Type = _Application_Login_Id, Employee_Type=_Employee_Type, Image_File_Name=_Image_File_Name });
+                    li_Result.Add(new Users() { User_id = _User_Id, Branch_ID=_Branch_Id, User_Name = _Confirm_User_Name, Employee_Name = _Employee_Name, DRN_Emp_Code = _Confirm_User_Name, User_RoleId = _User_Role_Id, Shift_Type_Id=_ShiftType, Application_Login_Type = _Application_Login_Id, Employee_Type=_Employee_Type, Image_File_Name=_Image_File_Name });
                     _Error = 0;
                     _Error_Message = "Valid User";
                     return Request.CreateResponse(HttpStatusCode.OK, new { _Error = _Error, _Error_Message = _Error_Message, Users = li_Result }, Configuration.Formatters.JsonFormatter);
