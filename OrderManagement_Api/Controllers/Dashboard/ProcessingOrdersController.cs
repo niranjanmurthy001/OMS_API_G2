@@ -31,7 +31,7 @@ namespace OrderManagement_Api.Controllers.Dashboard
                         Live_Order_Count = row["L_Order_Count"],
                         Rework_Order_Count = row["R_Order_Count"],
                         Super_Qc_Order_Count = row["S_Order_Count"]
-                        //   Test_Order_Count= row["Test_Order_Count"]
+                        //Test_Order_Count= row["Test_Order_Count"]
                     }).ToList();
 
                     return Request.CreateResponse(HttpStatusCode.OK, Order_Count_List.ToList(), Configuration.Formatters.JsonFormatter);
@@ -66,7 +66,10 @@ namespace OrderManagement_Api.Controllers.Dashboard
                           Typing = row["Typing"],
                           Typing_Qc = row["Typing_Qc"],
                           Final_Qc = row["Final_Qc"],
-                          Exception = row["Exception"]
+                          Exception = row["Exception"],
+                          Upload=row["Upload"]
+
+                          
                       }
                     ).ToList();
 
