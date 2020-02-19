@@ -230,6 +230,7 @@
     <Compile Include="Controllers\Employee\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Masters\KeywordsController.cs" />
     <Compile Include="Controllers\Masters\MasterController.cs" />
     <Compile Include="Controllers\Order\CommentController.cs" />
     <Compile Include="Controllers\Order\EmailSetttingsController.cs" />
