@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using OrderManagement_Api.App_Start;
 
 namespace OrderManagement_Api
 {
@@ -25,6 +26,11 @@ namespace OrderManagement_Api
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Addding Custom Exception Filter
+
+            config.Filters.Add(new CustomExceptionFilter());
+
         }
     }
 }

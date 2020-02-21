@@ -93,8 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -104,7 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OrderManagement_Api\OrderManagement_Api.csproj">
-      <Project>{D1309E36-98FB-4547-9D31-D9F933045666}</Project>
+      <Project>{d1309e36-98fb-4547-9d31-d9f933045666}</Project>
       <Name>OrderManagement_Api</Name>
     </ProjectReference>
   </ItemGroup>

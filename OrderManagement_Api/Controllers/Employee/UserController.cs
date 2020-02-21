@@ -9,8 +9,10 @@ namespace OrderManagement_Api.Controllers.Employee
 {
     public class UserController : ApiController
     {
+        
         [HttpGet]
         [ActionName("GetUser")]
+        [Authorize]
         public IHttpActionResult GetUser(int? id = null)
         {
             if (id.HasValue)

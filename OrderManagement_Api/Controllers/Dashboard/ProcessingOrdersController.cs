@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OrderManagement_Api.App_Start;
 using OrderManagement_Api.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace OrderManagement_Api.Controllers.Dashboard
 {
     public class ProcessingOrdersController : ApiController
     {
+        [CustomExceptionFilter]
+        [Authorize]
         [HttpPost]
         [ActionName("Processing_Order_Count")]
         public HttpResponseMessage Processing_Order_Count(dynamic Obj)
@@ -84,6 +87,8 @@ namespace OrderManagement_Api.Controllers.Dashboard
 
         }
 
+        [CustomExceptionFilter]
+        [Authorize]
         [HttpPost]
         [ActionName("Processing_Orders")]
         public HttpResponseMessage Processing_Orders_Details(dynamic Obj)
@@ -98,7 +103,7 @@ namespace OrderManagement_Api.Controllers.Dashboard
                     var Processing_Order_List = dt.AsEnumerable().Select(row =>
                       new
                       {
-                          Serial_No =row["Serial_No"],
+                          Serial_No = row["Serial_No"],
                           Order_ID = row["Order_ID"],
                           Order_Progress_ID = row["Order_Progress_ID"],
                           Client_Order_Number = row["Client_Order_Number"],
@@ -135,11 +140,15 @@ namespace OrderManagement_Api.Controllers.Dashboard
                     ).ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, Processing_Order_List, Configuration.Formatters.JsonFormatter);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                else
+                {
+
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
             }
             catch (HttpResponseException ex)
             {
-                return Request.CreateResponse(ex.Response.StatusCode);
+                 return Request.CreateResponse(ex.Response.StatusCode);
             }
         }
 

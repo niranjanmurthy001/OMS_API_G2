@@ -13,7 +13,10 @@ namespace OrderManagement_Api.Models
         public DBContext()
         { 
             Database.Connection.ConnectionString = ConfigurationManager.ConnectionStrings["Title_Product_Connection"].ConnectionString;
+
+             
         }
+      public DbSet<Users> Users { get; set; }
 
     }
 }
