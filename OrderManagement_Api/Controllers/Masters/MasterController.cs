@@ -2,14 +2,12 @@
 using OrderManagement_Api.Models;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Masters
 {
     public class MasterController : ApiController
     {
-        SqlConnection con;
         [HttpPost]
         [ActionName("BindClients")]
         public IHttpActionResult BindClients(dynamic data)
