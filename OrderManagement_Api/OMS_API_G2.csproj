@@ -253,6 +253,7 @@
     <Compile Include="Controllers\Order\Order_Check_ListController.cs" />
     <Compile Include="Controllers\Order\Order_ValidateController.cs" />
     <Compile Include="Controllers\SearchNotePadController.cs" />
+    <Compile Include="Controllers\Test\NiranjanController.cs" />
     <Compile Include="Controllers\Test\TestController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
