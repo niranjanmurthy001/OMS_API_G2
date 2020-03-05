@@ -161,17 +161,14 @@ namespace OrderManagement_Api.Controllers.Masters
                 return StatusCode(ex.Response.StatusCode);
             }
         }
-        [HttpGet]
+        [HttpPost]
         [ActionName("columns")]
-        public IHttpActionResult GetColumns(string id)
+        public IHttpActionResult GetColumns(dynamic data)
         {
-            if (string.IsNullOrWhiteSpace(id)) return BadRequest();
+            if (data == null) return BadRequest();
             try
             {
-                var dictionary = new Dictionary<string, object>
-                {
-                    {"@Type",id }
-                };
+                var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(data));
                 DataTable dt = DbExecute.GetMultipleRecordByParam("usp_ExportTemplate", dictionary);
                 if (dt != null)
                 {
