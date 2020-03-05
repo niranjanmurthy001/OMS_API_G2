@@ -2,6 +2,7 @@
 using OrderManagement_Api.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Web.Http;
 
 namespace OrderManagement_Api.Controllers.Masters
@@ -153,6 +154,30 @@ namespace OrderManagement_Api.Controllers.Masters
                 };
                 DataTable dtCounties = DbExecute.GetMultipleRecordByParam("usp_Master_Client_Process", dictionary);
                 if (dtCounties != null && dtCounties.Rows.Count > 0) return Ok(dtCounties);
+                return NotFound();
+            }
+            catch (HttpResponseException ex)
+            {
+                return StatusCode(ex.Response.StatusCode);
+            }
+        }
+        [HttpGet]
+        [ActionName("columns")]
+        public IHttpActionResult GetColumns(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return BadRequest();
+            try
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"@Type",id }
+                };
+                DataTable dt = DbExecute.GetMultipleRecordByParam("usp_ExportTemplate", dictionary);
+                if (dt != null)
+                {
+                    var colList = dt.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList();
+                    return Ok(colList);
+                }
                 return NotFound();
             }
             catch (HttpResponseException ex)
